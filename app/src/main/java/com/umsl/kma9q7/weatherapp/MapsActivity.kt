@@ -1,11 +1,15 @@
 package com.umsl.kma9q7.weatherapp
 
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.umsl.kma9q7.weatherapp.databinding.ActivityMapsBinding
@@ -15,9 +19,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private lateinit var locationManager: LocationManager
+    private var latitude = 0.0
+    private var longitude = 0.0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        MapsInitializer.initialize(this, MapsInitializer.Renderer.LATEST) {
+            //println(it.name)
+        }
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -32,10 +44,42 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap = googleMap
 
-        val umsl = LatLng(38.0, -90.0)
-        mMap.addMarker(MarkerOptions().position(umsl).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(umsl))
-    }
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+            PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+            PackageManager.PERMISSION_GRANTED) {
 
+
+            var mLocationManager = applicationContext.getSystemService(LOCATION_SERVICE) as LocationManager
+            val providers: List<String> = mLocationManager!!.getProviders(true)
+            var bestLocation: Location? = null
+            for (provider in providers) {
+                val l: Location =
+                    mLocationManager.getLastKnownLocation(provider) ?: continue
+                if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
+                    // Found best last known location: %s", l);
+                    bestLocation = l
+                }
+            }
+
+            var location = bestLocation
+
+            if (location != null) {
+                Log.i("UMSL2", location.latitude.toString())
+                latitude = location.latitude
+                longitude = location.longitude
+            } else {
+                Log.i("UMSL2", latitude.toString()) // We got here!
+            }
+
+            val umsl = LatLng(latitude, longitude)
+            mMap.addMarker(MarkerOptions().position(umsl).title("Marker in Sydney"))
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(umsl))
+
+        } else {
+            Toast.makeText(this, "No permission", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
 }
