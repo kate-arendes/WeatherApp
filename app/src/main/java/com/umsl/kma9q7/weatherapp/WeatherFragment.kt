@@ -20,7 +20,6 @@ class WeatherFragment : Fragment() {
 
     private var lat = 0.0
     private var long = 0.0
-    private var city = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +42,11 @@ class WeatherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val city = view.findViewById<TextView>(R.id.location)
+        val temp = view.findViewById<TextView>(R.id.temp)
+        val highTemp = view.findViewById<TextView>(R.id.hightemp)
+        val lowTemp = view.findViewById<TextView>(R.id.lowtemp)
+        val description = view.findViewById<TextView>(R.id.description)
+
         val geocoder = Geocoder(view.context, Locale.getDefault())
         val addresses = geocoder.getFromLocation(lat, long, 1) as List<Address>
         val cityName = addresses[0].locality
@@ -50,18 +54,21 @@ class WeatherFragment : Fragment() {
 
 
         val request = ServiceBuilder.buildService(OwEndpoints::class.java)
-        val call = request.getWeather(lat.toString(), long.toString(), "ca7fcaf340c3f3f6eb801c2de5f89d26")
+        val call = request.getWeather(lat.toString(), long.toString(), "ca7fcaf340c3f3f6eb801c2de5f89d26", "imperial")
 
-        call.enqueue(object: Callback<Weather> {
-            override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
+        call.enqueue(object: Callback<WeatherData> {
+            override fun onResponse(call: Call<WeatherData>, response: Response<WeatherData>) {
                 if(response.isSuccessful){
-                    city.text = "SUCCESS"
+                    val weatherData = response.body()!!
+                    temp.text = weatherData.main.temp.toInt().toString()
+                    highTemp.text = "High: " + weatherData.main.tempMax.toInt().toString()
+                    lowTemp.text = "Low: " + weatherData.main.tempMin.toInt().toString()
+                    description.text = weatherData.weather[0].description
                 }
             }
 
-            override fun onFailure(call: Call<Weather>, t: Throwable) {
+            override fun onFailure(call: Call<WeatherData>, t: Throwable) {
                 Toast.makeText(this@WeatherFragment.context, "${t.message}", Toast.LENGTH_LONG).show()
-                city.text = "Failure :("
             }
         }
         )

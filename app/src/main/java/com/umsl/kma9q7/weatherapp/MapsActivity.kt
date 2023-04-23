@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.umsl.kma9q7.weatherapp.databinding.ActivityMapsBinding
@@ -109,7 +110,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val currentLoc = LatLng(latitude, longitude)
             val umslLoc = LatLng(38.7092, -90.3083)
             mMap.addMarker(MarkerOptions().position(currentLoc).title("Current Location"))
-            mMap.addMarker(MarkerOptions().position(umslLoc).title("UMSL"))
+            mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(
+                BitmapDescriptorFactory.HUE_YELLOW)).position(umslLoc).title("UMSL"))
             mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLoc))
 
         } else {
