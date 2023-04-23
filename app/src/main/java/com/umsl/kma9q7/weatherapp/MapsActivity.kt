@@ -52,7 +52,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 R.id.miWeather -> {
                     val bundle = Bundle()
+
                     bundle.putDouble("lat", latitude)
+                    bundle.putDouble("long", longitude)
+
                     val weatherFragment = WeatherFragment()
                     weatherFragment.arguments = bundle
                     supportFragmentManager.beginTransaction().apply {
