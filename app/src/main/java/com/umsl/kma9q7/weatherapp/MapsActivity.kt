@@ -1,6 +1,5 @@
 package com.umsl.kma9q7.weatherapp
 
-import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -19,7 +18,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    private lateinit var locationManager: LocationManager
     private var latitude = 0.0
     private var longitude = 0.0
 
@@ -50,19 +48,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             PackageManager.PERMISSION_GRANTED) {
 
 
-            var mLocationManager = applicationContext.getSystemService(LOCATION_SERVICE) as LocationManager
-            val providers: List<String> = mLocationManager!!.getProviders(true)
+            val mLocationManager = applicationContext.getSystemService(LOCATION_SERVICE) as LocationManager
+            val providers: List<String> = mLocationManager.getProviders(true)
             var bestLocation: Location? = null
             for (provider in providers) {
                 val l: Location =
                     mLocationManager.getLastKnownLocation(provider) ?: continue
                 if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
-                    // Found best last known location: %s", l);
                     bestLocation = l
                 }
             }
 
-            var location = bestLocation
+            val location = bestLocation
 
             if (location != null) {
                 Log.i("UMSL2", location.latitude.toString())
@@ -72,9 +69,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Log.i("UMSL2", latitude.toString()) // We got here!
             }
 
-            val umsl = LatLng(latitude, longitude)
-            mMap.addMarker(MarkerOptions().position(umsl).title("Marker in Sydney"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(umsl))
+            val currentLoc = LatLng(latitude, longitude)
+            mMap.addMarker(MarkerOptions().position(currentLoc).title("Marker in Sydney"))
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLoc))
 
         } else {
             Toast.makeText(this, "No permission", Toast.LENGTH_SHORT).show();
