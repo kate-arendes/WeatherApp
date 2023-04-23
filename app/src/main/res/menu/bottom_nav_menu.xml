@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/miMap"
+        android:title="Map"
+        android:icon="@drawable/ic_map_foreground"/>
+
+    <item
+        android:id="@+id/miWeather"
+        android:title="Weather"
+        android:icon="@drawable/ic_weather_foreground"/>
+
+    <item
+        android:id="@+id/miUMSL"
+        android:title="UMSL"
+        android:icon="@drawable/ic_umsl_foreground"/>
+</menu>
