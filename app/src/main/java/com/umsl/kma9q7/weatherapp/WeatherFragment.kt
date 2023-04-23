@@ -8,12 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-private var lat = 0.0
 
 class WeatherFragment : Fragment() {
 
@@ -46,6 +47,26 @@ class WeatherFragment : Fragment() {
         val addresses = geocoder.getFromLocation(lat, long, 1) as List<Address>
         val cityName = addresses[0].locality
         city.text = cityName.toString()
+
+
+        val request = ServiceBuilder.buildService(OwEndpoints::class.java)
+        val call = request.getWeather(lat.toString(), long.toString(), "ca7fcaf340c3f3f6eb801c2de5f89d26")
+
+        call.enqueue(object: Callback<Weather> {
+            override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
+                if(response.isSuccessful){
+                    city.text = "SUCCESS"
+                }
+            }
+
+            override fun onFailure(call: Call<Weather>, t: Throwable) {
+                Toast.makeText(this@WeatherFragment.context, "${t.message}", Toast.LENGTH_LONG).show()
+                city.text = "Failure :("
+            }
+        }
+        )
+
+
     }
 
 }
