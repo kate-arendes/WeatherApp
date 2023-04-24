@@ -1,5 +1,6 @@
 package com.umsl.kma9q7.weatherapp
 
+import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +44,7 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val ui = view.findViewById<ConstraintLayout>(R.id.clWeather)
         val city = view.findViewById<TextView>(R.id.location)
         val temp = view.findViewById<TextView>(R.id.temp)
         val highTemp = view.findViewById<TextView>(R.id.hightemp)
@@ -58,7 +61,15 @@ class WeatherFragment : Fragment() {
         val geocoder = Geocoder(view.context, Locale.getDefault())
         val addresses = geocoder.getFromLocation(lat, long, 1) as List<Address>
         val cityName = addresses[0].locality
-        city.text = cityName.toString()
+
+        if(lat == 38.7092 && long == -90.3083) {
+            city.text = "UMSL"
+            ui.setBackgroundColor(Color.parseColor("#FFEFAFAF"))
+        }
+        else {
+            city.text = cityName.toString()
+            ui.setBackgroundColor(Color.parseColor("#87C0F3"))
+        }
 
 
         val request = ServiceBuilder.buildService(OwEndpoints::class.java)

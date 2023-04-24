@@ -39,8 +39,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
 
-        val umslFragment = UmslFragment()
-
         binding.bottomNavView.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.miMap -> {
@@ -66,8 +64,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 R.id.miUMSL -> {
                     supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.map, umslFragment)
-                        commit()
+                        val bundle = Bundle()
+
+                        bundle.putDouble("lat", 38.7092)
+                        bundle.putDouble("long", -90.3083)
+
+                        val umslFragment = WeatherFragment()
+                        umslFragment.arguments = bundle
+                        supportFragmentManager.beginTransaction().apply {
+                            replace(R.id.map, umslFragment)
+                            commit()
+                        }
                     }
                 }
             }
@@ -109,9 +116,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             val currentLoc = LatLng(latitude, longitude)
             val umslLoc = LatLng(38.7092, -90.3083)
-            mMap.addMarker(MarkerOptions().position(currentLoc).title("Current Location"))
             mMap.addMarker(MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(
-                BitmapDescriptorFactory.HUE_YELLOW)).position(umslLoc).title("UMSL"))
+                BitmapDescriptorFactory.HUE_BLUE)).position(currentLoc).title("Current Location"))
+            mMap.addMarker(MarkerOptions().position(umslLoc).title("UMSL"))
             mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLoc))
 
         } else {
