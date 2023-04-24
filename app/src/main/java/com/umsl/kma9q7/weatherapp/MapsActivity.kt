@@ -19,8 +19,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    private var latitude = 0.0
-    private var longitude = 0.0
+    private var latitude = 38.7092
+    private var longitude = -90.3083
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

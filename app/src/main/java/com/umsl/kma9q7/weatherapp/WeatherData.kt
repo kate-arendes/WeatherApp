@@ -3,7 +3,6 @@ package com.umsl.kma9q7.weatherapp
 import com.google.gson.annotations.SerializedName
 
 data class WeatherData(
-    @SerializedName("coord") val coord: Coord,
     @SerializedName("weather") val weather: List<Weather>,
     @SerializedName("base") val base: String,
     @SerializedName("main") val main: TemperatureData,
@@ -26,10 +25,7 @@ data class Sys(
     @SerializedName("sunset") val sunset: Int
 )
 
-data class Coord(
-    @SerializedName("lon") val lon: Double,
-    @SerializedName("lat") val lat: Double
-)
+
 
 data class TemperatureData(
     @SerializedName("temp") val temp: Double,

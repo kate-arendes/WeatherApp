@@ -5,16 +5,18 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".WeatherFragment"
-    android:background="@color/white"
+    android:background="#87C0F3"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/location"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:textSize="32sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="City Name" />
+
 
     <TextView
         app:layout_constraintTop_toBottomOf="@id/location"
@@ -40,12 +42,60 @@
         android:layout_height="50dp"
         android:text="Low Temperature" />
 
+    <ImageView
+        android:id="@+id/icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lowtemp"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
     <TextView
         app:layout_constraintTop_toBottomOf="@id/lowtemp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Temperature" />
+        android:text="Current weather" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/humidity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Humidity" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/humidity"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/windspeed"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Wind Speed" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/windspeed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/pressure"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Rain 1hr" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/pressure"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/cloudiness"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Cloudiness" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/cloudiness"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/weatherid"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Code" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
