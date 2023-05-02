@@ -123,8 +123,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(
-                        location!!.latitude,
-                        location.longitude
+                        latitude,
+                        longitude
                     ), 11.0f
                 ))
 
