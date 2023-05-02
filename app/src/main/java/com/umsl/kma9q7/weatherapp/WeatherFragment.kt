@@ -80,16 +80,16 @@ class WeatherFragment : Fragment() {
                 if(response.isSuccessful){
                     val weatherData = response.body()!!
                     Glide.with(view.context).load("https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png").into(icon)
-                    temp.text = weatherData.main.temp.toInt().toString()
-                    highTemp.text = "High: " + weatherData.main.tempMax.toInt().toString()
-                    lowTemp.text = "Low: " + weatherData.main.tempMin.toInt().toString()
+                    temp.text = weatherData.main.temp.toInt().toString() + "°"
+                    highTemp.text = "High: " + weatherData.main.tempMax.toInt().toString() + "°"
+                    lowTemp.text = "Low: " + weatherData.main.tempMin.toInt().toString() + "°"
                     description.text = weatherData.weather[0].description.capitalize()
-                    humidity.text = weatherData.main.humidity.toString()
-                    pressure.text = weatherData.main.pressure.toString()
-                    windspeed.text = weatherData.wind.speed.toString()
-                    cloudiness.text = weatherData.clouds.all.toString()
+                    humidity.text = "Humidity: " + weatherData.main.humidity.toString() + "%"
+                    pressure.text = "Pressure: " + weatherData.main.pressure.toString()
+                    windspeed.text = "Wind Speed: " + weatherData.wind.speed.toString() + "mph"
+                    cloudiness.text = "Cloud %: " + weatherData.clouds.all.toString()
 
-                    code.text = weatherData.weather[0].id.toString()
+                    code.text = "OpenWeather weather code: " + weatherData.weather[0].id.toString()
 
                 }
             }

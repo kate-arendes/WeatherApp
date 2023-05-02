@@ -120,6 +120,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 BitmapDescriptorFactory.HUE_BLUE)).position(currentLoc).title("Current Location"))
             mMap.addMarker(MarkerOptions().position(umslLoc).title("UMSL"))
             mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLoc))
+            mMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(
+                        location!!.latitude,
+                        location.longitude
+                    ), 11.0f
+                ))
 
         } else {
             Toast.makeText(this, "No permission", Toast.LENGTH_SHORT).show();
