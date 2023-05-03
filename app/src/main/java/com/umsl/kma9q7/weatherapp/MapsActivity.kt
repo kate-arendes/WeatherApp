@@ -1,5 +1,6 @@
 package com.umsl.kma9q7.weatherapp
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -129,6 +131,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 ))
 
         } else {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), 0)
             Toast.makeText(this, "No permission", Toast.LENGTH_SHORT).show();
         }
 
