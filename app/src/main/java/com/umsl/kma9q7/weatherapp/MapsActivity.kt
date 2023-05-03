@@ -26,6 +26,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle("WeatherApp")
         super.onCreate(savedInstanceState)
 
         MapsInitializer.initialize(this, MapsInitializer.Renderer.LATEST) {
