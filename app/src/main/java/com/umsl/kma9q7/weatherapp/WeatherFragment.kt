@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -62,6 +63,11 @@ class WeatherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val ui = view.findViewById<ConstraintLayout>(R.id.clWeather)
+        val locCard = view.findViewById<CardView>(R.id.locationCard)
+        val desCard = view.findViewById<CardView>(R.id.descriptionCard)
+        val windCard = view.findViewById<CardView>(R.id.windCard)
+        val cloudCard = view.findViewById<CardView>(R.id.cloudCard)
+
         val city = view.findViewById<TextView>(R.id.location)
         val temp = view.findViewById<TextView>(R.id.temp)
         val highTemp = view.findViewById<TextView>(R.id.hightemp)
@@ -82,12 +88,26 @@ class WeatherFragment : Fragment() {
         if(lat == 38.7092 && long == -90.3083) {
             city.text = "UMSL"
             ui.setBackgroundColor(Color.parseColor("#FFEFAFAF"))
+
+            locCard.setCardBackgroundColor(Color.parseColor("#FFEDC0C0"))
+            desCard.setCardBackgroundColor(Color.parseColor("#FFEDC0C0"))
+            windCard.setCardBackgroundColor(Color.parseColor("#FFEDC0C0"))
+            cloudCard.setCardBackgroundColor(Color.parseColor("#FFEDC0C0"))
+
             notificationCode = 0
 
         }
         else {
             city.text = cityName.toString()
             ui.setBackgroundColor(Color.parseColor("#87C0F3"))
+
+            locCard.setCardBackgroundColor(Color.parseColor("#FF9DCEFB"))
+            desCard.setCardBackgroundColor(Color.parseColor("#FF9DCEFB"))
+            windCard.setCardBackgroundColor(Color.parseColor("#FF9DCEFB"))
+            cloudCard.setCardBackgroundColor(Color.parseColor("#FF9DCEFB"))
+
+
+
             notificationCode = 1
         }
 
@@ -105,9 +125,9 @@ class WeatherFragment : Fragment() {
                     lowTemp.text = "Low: " + weatherData.main.tempMin.toInt().toString() + "°"
                     description.text = weatherData.weather[0].description.capitalize()
                     humidity.text = "Humidity: " + weatherData.main.humidity.toString() + "%"
-                    pressure.text = "Pressure: " + weatherData.main.pressure.toString()
-                    windspeed.text = "Wind Speed: " + weatherData.wind.speed.toString() + "mph"
-                    cloudiness.text = "Cloud %: " + weatherData.clouds.all.toString()
+                    pressure.text = "Pressure: " + weatherData.main.pressure.toString() + " hPa"
+                    windspeed.text = "Wind Speed: " + weatherData.wind.speed.toString() + " mph"
+                    cloudiness.text = "Clouds: " + weatherData.clouds.all.toString() + "%"
 
                     code.text = "OpenWeather weather code: " + weatherData.weather[0].id.toString()
 
@@ -115,8 +135,8 @@ class WeatherFragment : Fragment() {
 
 
                     val notificationTitle = description.text.toString() + " in " + city.text
-                    var notificationContent = ""
-                    var notificationIcon = R.drawable.ic_weather_foreground
+                    val notificationContent: String
+                    val notificationIcon: Int
 
                     if(weatherCode < 600) {
                         notificationContent = "It's raining outside, bring an umbrella!"

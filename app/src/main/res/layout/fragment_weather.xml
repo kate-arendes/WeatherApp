@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".WeatherFragment"
-    android:background="#EFAFAF"
+    android:background="#87C0F3"
     android:orientation="vertical"
     android:id="@+id/clWeather">
 
@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/locationCard">
+        android:id="@+id/locationCard"
+        app:cardBackgroundColor="#9DCEFB">
 
 
     <TextView
@@ -52,6 +53,7 @@
         android:id="@+id/hightemp"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:textSize="20sp"
         android:text="High: --°"
         android:paddingTop="20dp"
         android:paddingLeft="100dp"
@@ -61,35 +63,40 @@
         app:layout_constraintTop_toBottomOf="@id/temp"
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/lowtemp"
+        android:textSize="20sp"
         android:paddingTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:text="Low: --°"
         android:textAlignment="center"
-        android:paddingRight="100dp"/>
+        android:paddingRight="100dp"
+        android:layout_marginBottom="10dp"/>
 
     <androidx.cardview.widget.CardView
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         app:layout_constraintTop_toBottomOf="@id/hightemp"
-        android:id="@+id/descriptionCard">
+        android:id="@+id/descriptionCard"
+        app:cardBackgroundColor="#F8D0D0">
 
     <ImageView
         android:id="@+id/icon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_width="98dp"
+        android:layout_height="98dp" />
 
         <TextView
             android:id="@+id/description"
+            android:textSize="24sp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="---"
             app:layout_constraintLeft_toRightOf="@id/icon"
             app:layout_constraintTop_toTopOf="parent"
-            android:paddingLeft="150dp"
-            android:paddingTop="35dp"/>
+            android:paddingLeft="140dp"
+            android:paddingTop="24dp"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -98,40 +105,71 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/humidity"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Humidity" />
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:layout_height="70dp"
+        android:textSize="24sp"
+        android:text="Humidity: --%" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toBottomOf="@id/humidity"
+        android:id="@+id/windCard"
+        app:cardBackgroundColor="#F8D0D0"
+        android:layout_marginBottom="10dp">
 
     <TextView
-        app:layout_constraintTop_toBottomOf="@id/humidity"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/windspeed"
+        android:textSize="24sp"
+        android:paddingLeft="20dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Wind Speed" />
+        android:layout_height="match_parent"
+        android:text="Wind Speed: --.-- mph"
+        android:paddingTop="24dp" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
-        app:layout_constraintTop_toBottomOf="@id/windspeed"
+        app:layout_constraintTop_toBottomOf="@id/windCard"
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/pressure"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Rain 1hr" />
+        android:paddingTop="20dp"
+        android:layout_height="70dp"
+        android:paddingLeft="20dp"
+        android:textSize="24sp"
+        android:text="Pressure: --- hPa" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toBottomOf="@id/pressure"
+        android:id="@+id/cloudCard"
+        app:cardBackgroundColor="#F8D0D0">
 
     <TextView
-        app:layout_constraintTop_toBottomOf="@id/pressure"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/cloudiness"
+        android:paddingLeft="20dp"
+        android:textSize="24sp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Cloudiness" />
+        android:layout_height="match_parent"
+        android:text="Clouds: --%"
+        android:paddingTop="24dp" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
-        app:layout_constraintTop_toBottomOf="@id/cloudiness"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/weatherid"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Code" />
+        android:text="OpenWeather weather code: "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cloudCard" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
