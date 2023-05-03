@@ -116,31 +116,38 @@ class WeatherFragment : Fragment() {
 
                     val notificationTitle = description.text.toString() + " in " + city.text
                     var notificationContent = ""
+                    var notificationIcon = R.drawable.ic_weather_foreground
 
                     if(weatherCode < 600) {
                         notificationContent = "It's raining outside, bring an umbrella!"
+                        notificationIcon = R.drawable.ic_rain_foreground
                     }
                     else if(weatherCode < 700) {
                         notificationContent = "Winter weather right now. Stay warm!"
+                        notificationIcon = R.drawable.ic_snow_foreground
                     }
                     else if(weatherCode < 762)  {
                         notificationContent = "Reduced visibility. Travel with caution."
+                        notificationIcon = R.drawable.ic_mist_foreground
                     }
                     else if(weatherCode < 800) {
                         notificationContent = "Extreme weather. Stay alert and check local news."
+                        notificationIcon = R.drawable.ic_extreme_foreground
                     }
                     else if(weatherCode == 800) {
                         notificationContent = "It's a beautiful day in " + city.text + "!"
+                        notificationIcon = R.drawable.ic_weather_foreground
                     }
                     else {
                         notificationContent = "Clouds right now in " + city.text
+                        notificationIcon = R.drawable.ic_cloud_foreground
                     }
 
 
                     val notification = NotificationCompat.Builder(getActivity() as Context, channelId)
                                 .setContentTitle(notificationTitle)
                                 .setContentText(notificationContent)
-                                .setSmallIcon(R.drawable.ic_weather_foreground)
+                                .setSmallIcon(notificationIcon)
                                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                                 .build()
 
