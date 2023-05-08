@@ -78,6 +78,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             replace(R.id.map, umslFragment)
                             commit()
                         }
+
+                        commit()
                     }
                 }
             }
